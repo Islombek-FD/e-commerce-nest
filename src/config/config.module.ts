@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import * as process from 'process';
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import configuration from '@/config/configuration';
 
@@ -8,11 +9,8 @@ import configuration from '@/config/configuration';
   imports: [
     NestConfigModule.forRoot({
       isGlobal: true,
-      load: [configuration],
-      envFilePath: [
-        `.env.${process.env.NODE_ENV}`, // dynamic env selection
-        '.env', // fallback
-      ],
+      load: [],
+      envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
       validationSchema: Joi.object({
         NODE_ENV: Joi.string()
           .valid('development', 'production', 'staging', 'test')
@@ -25,6 +23,7 @@ import configuration from '@/config/configuration';
         DB_PASSWORD: Joi.string().required(),
       }),
     }),
+    TypeOrmModule.forRoot(configuration().getTypeOrmConfig())
   ],
 })
 export class ConfigModule {}

@@ -19,11 +19,6 @@ export class AuthController {
     return this.authService.login(dto);
   }
 
-  @Get('test')
-  test() {
-    return 'hello world';
-  }
-
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@CurrentUser() user: any) {

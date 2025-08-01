@@ -11,13 +11,13 @@ import { RegisterDto } from './dto/register.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
-    private userService: UserService,
+    private readonly jwtService: JwtService,
+    private readonly userService: UserService,
   ) {}
 
   async register(dto: RegisterDto) {
-    const existing = await this.userService.getByUsername(dto.username);
-    if (existing) {
+    const exists = await this.userService.getByUsername(dto.username);
+    if (exists) {
       throw new UnauthorizedException('Username already taken');
     }
 
@@ -37,7 +37,8 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const user = await this.userService.getByUsername(dto.username);
-    if (!user || !(await bcrypt.compare(dto.password, user.password))) {
+    const isMatch = await bcrypt.compare(dto.password, user.password);
+    if (!user || !isMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
     const payload: JwtPayload = {

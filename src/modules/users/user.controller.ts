@@ -18,40 +18,40 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly usersService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @Permissions(PERMISSION.VIEW_USERS)
   @Get()
   findAll() {
-    return this.usersService.findAll();
+    return this.userService.findAll();
   }
 
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @Permissions(PERMISSION.VIEW_USER)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.getById(+id);
+  findOne(@Param('id') id: number) {
+    return this.userService.getById(id);
   }
 
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @Permissions(PERMISSION.CREATE_USER)
   @Post()
   create(@Body() dto: CreateUserDto) {
-    return this.usersService.create(dto);
+    return this.userService.create(dto);
   }
 
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @Permissions(PERMISSION.UPDATE_USER)
   @Put(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-    return this.usersService.update(+id, dto);
+  update(@Param('id') id: number, @Body() dto: UpdateUserDto) {
+    return this.userService.update(id, dto);
   }
 
   @UseGuards(JwtAuthGuard, PermissionsGuard)
   @Permissions(PERMISSION.DELETE_USER)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.userService.remove(id);
   }
 }

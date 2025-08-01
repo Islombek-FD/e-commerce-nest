@@ -15,6 +15,16 @@ import { FileService } from './file.service';
 export class FileController {
   constructor(private readonly fileService: FileService) {}
 
+  @Get()
+  getAll() {
+    return this.fileService.getAll();
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: string) {
+    return this.fileService.getById(id);
+  }
+
   //@ts-ignore
   @Post('upload')
   @UseInterceptors(
@@ -32,15 +42,5 @@ export class FileController {
   )
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return this.fileService.uploadFile(file);
-  }
-
-  @Get()
-  getAll() {
-    return this.fileService.getAll();
-  }
-
-  @Get(':id')
-  getById(@Param('id') id: string) {
-    return this.fileService.getById(id);
   }
 }

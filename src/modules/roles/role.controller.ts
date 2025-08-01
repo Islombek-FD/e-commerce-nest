@@ -9,17 +9,17 @@ import { CreateRoleDto } from '@/modules/roles/dto/create-role.dto';
 @UseGuards(JwtAuthGuard, PermissionsGuard)
 @Controller('roles')
 export class RoleController {
-  constructor(private readonly rolesService: RoleService) {}
+  constructor(private readonly roleService: RoleService) {}
 
-  @Get()
   @Permissions(PERMISSION.VIEW_ROLE)
+  @Get()
   findAll() {
-    return this.rolesService.findAll();
+    return this.roleService.findAll();
   }
 
-  @Post()
   @Permissions(PERMISSION.CREATE_ROLE)
+  @Post()
   create(@Body() dto: CreateRoleDto) {
-    return this.rolesService.create(dto);
+    return this.roleService.create(dto);
   }
 }
