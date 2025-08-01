@@ -1,3 +1,4 @@
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import * as process from 'process';
@@ -13,6 +14,17 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalHttpExceptionFilter());
   app.setGlobalPrefix('api')
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
+
+  const config = new DocumentBuilder()
+    .setTitle('E-Commerce API')
+    .setDescription('E-Commerce API documents')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
+
   await app.listen(process.env.PORT ?? 3000);
 }
 
