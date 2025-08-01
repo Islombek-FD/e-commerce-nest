@@ -19,13 +19,13 @@ export class Payment extends BaseEntity {
   order: Order;
 
   @Column()
-  method: string; // karta, click, naqd, etc.
+  method: string;
 
   @Column('decimal', { precision: 10, scale: 2 })
   amount: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  paid_at: Date;
+  @Column({ name: 'paid_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  paidAt: Date;
 
   @Column({ type: 'enum', enum: STATUS, default: STATUS.ACTIVE })
   status: STATUS;

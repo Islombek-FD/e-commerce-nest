@@ -7,19 +7,19 @@ export class File extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'original_name' })
   originalName: string;
 
-  @Column()
+  @Column({ name: 'file_name' })
   fileName: string;
 
-  @Column()
+  @Column({ name: 'mime_type' })
   mimeType: string;
 
-  @Column()
+  @Column({ name: 'size' })
   size: number;
 
-  @Column()
+  @Column({ name: 'path' })
   path: string;
 
   @Column({

@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import * as process from 'process';
 import * as bcrypt from 'bcrypt';
 import { STATUS } from '@/common/enums';
 import { JwtPayload } from '@/modules/auth/dto/jwt.payload';
@@ -15,25 +16,27 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    const existing = await this.userService.findByUsername(dto.username);
-    if (existing) throw new UnauthorizedException('Username already taken');
+    const existing = await this.userService.getByUsername(dto.username);
+    if (existing) {
+      throw new UnauthorizedException('Username already taken');
+    }
 
     const hashedPassword = await bcrypt.hash(dto.password, 10);
     const user = await this.userService.create({
-      firstName: '',
-      lastName: '',
-      middleName: '',
-      username: '',
-      password: '',
+      firstName: dto.firstName,
+      lastName: dto.lastName,
+      middleName: dto.middleName,
+      username: dto.username,
+      password: hashedPassword,
       roleId: 1,
-      status: STATUS.ACTIVE,
+      status: STATUS.ACTIVE
     });
 
     return this.generateTokens(new JwtPayload());
   }
 
   async login(dto: LoginDto) {
-    const user = await this.userService.findByUsername(dto.username);
+    const user = await this.userService.getByUsername(dto.username);
     if (!user || !(await bcrypt.compare(dto.password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }

@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import * as process from 'process';
 import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import configuration from '@/config/configuration';

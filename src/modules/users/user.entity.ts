@@ -14,19 +14,19 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
+  @Column({ name: 'first_name', nullable: true })
   firstName: string;
 
-  @Column({ nullable: true })
+  @Column({ name: 'last_name', nullable: true })
   lastName: string;
 
-  @Column({ nullable: true })
+  @Column({ name: 'middle_name', nullable: true })
   middleName: string;
 
-  @Column({ unique: true })
+  @Column({ name: 'username', unique: true })
   username: string;
 
-  @Column()
+  @Column({ name: 'password' })
   password: string;
 
   @ManyToOne(() => Role)

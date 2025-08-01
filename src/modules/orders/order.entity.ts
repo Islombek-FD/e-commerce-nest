@@ -18,8 +18,8 @@ export class Order extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  order_date: Date;
+  @Column({ name: 'order_date', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  orderDate: Date;
 
   @Column({ type: 'enum', enum: STATUS, default: STATUS.ACTIVE })
   status: STATUS;

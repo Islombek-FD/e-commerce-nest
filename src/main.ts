@@ -11,6 +11,7 @@ const logger = new Logger('Main');
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new GlobalHttpExceptionFilter());
+  app.setGlobalPrefix('api')
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
   await app.listen(process.env.PORT ?? 3000);
 }
