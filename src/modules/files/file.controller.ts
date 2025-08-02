@@ -5,6 +5,7 @@ import {
   UploadedFile,
   Get,
   Param,
+  BadRequestException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -29,6 +30,22 @@ export class FileController {
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
+      limits: {
+        fileSize: 5 * 1024 * 1024, // Maksimal fayl hajmi: 5 MB
+      },
+      fileFilter: (req, file, cb) => {
+        const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (allowedMimeTypes.includes(file.mimetype)) {
+          cb(null, true);
+        } else {
+          cb(
+            new BadRequestException(
+              'Faqat jpeg, jpg yoki png formatdagi rasm yuklashingiz mumkin!',
+            ),
+            false,
+          );
+        }
+      },
       storage: diskStorage({
         destination: './uploads',
         filename: (req, file, cb) => {
