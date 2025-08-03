@@ -1,7 +1,8 @@
-import Joi from 'joi';
+import * as Joi from 'joi';
 import * as process from 'process';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import configuration from '@/config/configuration';
 
@@ -23,6 +24,7 @@ import configuration from '@/config/configuration';
         DB_PASSWORD: Joi.string().required(),
       }),
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot(configuration().getTypeOrmConfig())
   ],
 })
