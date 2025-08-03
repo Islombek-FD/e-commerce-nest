@@ -1,6 +1,6 @@
+import * as process from 'process';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as process from 'process';
 import * as bcrypt from 'bcrypt';
 import { STATUS } from '@/common/enums';
 import { JwtPayload } from '@/modules/auth/dto/jwt.payload';

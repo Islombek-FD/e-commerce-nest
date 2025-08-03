@@ -1,5 +1,5 @@
-import * as Joi from 'joi';
 import * as process from 'process';
+import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';

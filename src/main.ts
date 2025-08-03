@@ -1,9 +1,9 @@
+import { join } from 'path';
+import * as process from 'process';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
-import * as process from 'process';
 import * as express from 'express';
-import { join } from 'path';
 import { AppModule } from './app.module';
 import { GlobalHttpExceptionFilter } from '@/common/exceptions/http-exception.filter';
 

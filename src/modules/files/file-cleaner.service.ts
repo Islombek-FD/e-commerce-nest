@@ -16,7 +16,7 @@ export class FileCleanerService {
     private readonly fileRepository: Repository<File>,
   ) {}
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT) // Har kuni soat 00:00 da ishlaydi
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, { timeZone: 'Asia/Tashkent' }) // Har kuni soat 00:00 da ishlaydi
   async handleFileCleanup() {
     this.logger.log('Fayllarni tozalash boshlandi');
 

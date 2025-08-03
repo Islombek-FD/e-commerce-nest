@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import {
   BadRequestException,
   Controller,
@@ -14,8 +16,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import type { Response } from 'express';
-import * as fs from 'fs';
-import * as path from 'path';
 import { PERMISSION } from '@/common/enums';
 import { JwtAuthGuard, PermissionsGuard } from '@/common/guards';
 import { Permissions } from '@/common/decorators';
